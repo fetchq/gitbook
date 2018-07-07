@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Setup Postgres · GitBook</title>
+        <title>Create a new queue · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -60,7 +60,7 @@
 
     
     
-    <link rel="prev" href="./" />
+    <link rel="prev" href="02-initialize-fetchq.html" />
     
 
     </head>
@@ -116,9 +116,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.2.1" data-path="01-postgres-setup.html">
+        <li class="chapter " data-level="1.2.1" data-path="01-setup-postgres.html">
             
-                <a href="01-postgres-setup.html">
+                <a href="01-setup-postgres.html">
             
                     
                     Setup Postgres
@@ -129,14 +129,27 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.2" >
+        <li class="chapter " data-level="1.2.2" data-path="02-initialize-fetchq.html">
             
-                <span>
+                <a href="02-initialize-fetchq.html">
             
                     
-                    Sub page 2
+                    Initialize Fetchq
             
-                </span>
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.3" data-path="03-create-queue.html">
+            
+                <a href="03-create-queue.html">
+            
+                    
+                    Create a new queue
+            
+                </a>
             
 
             
@@ -177,7 +190,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Setup Postgres</a>
+        <a href=".." >Create a new queue</a>
     </h1>
 </div>
 
@@ -192,26 +205,9 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="&#xAB;-getting-started-01-setup-postgres-database"><small class="new-row"><a href="./">&#xAB; Getting Started</a></small> 01 Setup Postgres database</h2>
-<p>The first step is to boot a <em>Postgres</em> instance that can run the <em>Fetchq</em> extension.</p>
-<p><em>Fetchq</em> crew maintains an image on <em>Docker HUB</em> that is basically <em>Postgres</em> with the
-<em>Fetchq</em> extension&apos;s files shipped within.</p>
-<p>(@TODO: For more details take a loot at the <em>Docker</em> distribution)</p>
-<p>I personally like to run it with <em>Docker Compose</em> as it feels easier to modify and 
-reproduce across my projects.</p>
-<pre><code># docker-compose.yml
-version: &apos;2.1&apos;
-services:
-  postgres:
-    image: fetchq/fetchq:9.6-1.2.0
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: fetchq
-      POSTGRES_PASSWORD: fetchq
-      POSTGRES_DB: fetchq
-</code></pre><p>When you run this file with <code>docker-compose up</code> a brand new Postgres instance should be
-up and running on your development box in minutes.</p>
+                                <h2 id="&#xAB;-getting-started-03-create-a-new-queue"><small class="new-row"><a href="./">&#xAB; Getting Started</a></small> 03 Create a new queue</h2>
+<p>First read:<br><a href="02-initialize-fetchq.html">Initialize Fetchq &#xBB;</a></p>
+<hr>
 
                                 
                                 </section>
@@ -239,7 +235,7 @@ up and running on your development box in minutes.</p>
 
             
                 
-                <a href="./" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Getting Started">
+                <a href="02-initialize-fetchq.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Initialize Fetchq">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -251,7 +247,7 @@ up and running on your development box in minutes.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Setup Postgres","level":"1.2.1","depth":2,"next":{"title":"Sub page 2","level":"1.2.2","depth":2,"ref":"","articles":[]},"previous":{"title":"Getting Started","level":"1.2","depth":1,"path":"getting_started/README.md","ref":"getting_started/README.md","articles":[{"title":"Setup Postgres","level":"1.2.1","depth":2,"path":"getting_started/01-postgres-setup.md","ref":"getting_started/01-postgres-setup.md","articles":[]},{"title":"Sub page 2","level":"1.2.2","depth":2,"ref":"","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/01-postgres-setup.md","mtime":"2018-07-07T10:05:10.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-07T10:05:22.236Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Create a new queue","level":"1.2.3","depth":2,"previous":{"title":"Initialize Fetchq","level":"1.2.2","depth":2,"path":"getting_started/02-initialize-fetchq.md","ref":"getting_started/02-initialize-fetchq.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/03-create-queue.md","mtime":"2018-07-07T11:30:21.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-07T11:32:37.607Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

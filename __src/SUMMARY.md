@@ -2,6 +2,7 @@
 
 * [Home](README.md)
 * [Getting Started](getting_started/README.md)
-  * [Setup Postgres](getting_started/01-postgres-setup.md)
-  * Sub page 2
+  * [Setup Postgres](getting_started/01-setup-postgres.md)
+  * [Initialize Fetchq](getting_started/02-initialize-fetchq.md)
+  * [Create a new queue](getting_started/03-create-queue.md)
 
