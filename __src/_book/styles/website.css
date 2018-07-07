@@ -1,0 +1,8 @@
+.markdown-section h2 small {
+    font-size: 0.6em;
+}
+
+.markdown-section h2 small.new-row {
+    display: block;
+    font-weight: normal;
+}
