@@ -34,6 +34,8 @@
 
     
         
+        <link rel="stylesheet" href="../styles/website.css">
+        
     
         
     
@@ -56,6 +58,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
+    
+    <link rel="next" href="01-setup-postgres.html" />
     
     
     <link rel="prev" href="../" />
@@ -114,27 +118,40 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.1" >
+        <li class="chapter " data-level="1.2.1" data-path="01-setup-postgres.html">
             
-                <span>
+                <a href="01-setup-postgres.html">
             
                     
-                    Sub page 1
+                    Setup Postgres
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="1.2.2" >
+        <li class="chapter " data-level="1.2.2" data-path="02-initialize-fetchq.html">
             
-                <span>
+                <a href="02-initialize-fetchq.html">
             
                     
-                    Sub page 2
+                    Initialize Fetchq
             
-                </span>
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="03-create-queue.html">
+            
+                <a href="03-create-queue.html">
+            
+                    
+                    Create a new queue
+            
+                </a>
             
 
             
@@ -191,31 +208,15 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="getting-started">Getting Started</h1>
-<p>This tutorial will guide you through the setup of a <em>Fetchq</em> project, you are going to use
-<em>NodeJS</em> and <em>Docker</em> to set this up.</p>
-<h2 id="setup-the-database">Setup the database</h2>
-<p>The first step is to boot a <em>Postgres</em> instance that can run the <em>Fetchq</em> extension.</p>
-<p><em>Fetchq</em> crew maintains an image on <em>Docker HUB</em> that is basically <em>Postgres</em> with the
-<em>Fetchq</em> extension&apos;s files shipped within.</p>
-<p>(@TODO: For more details take a loot at the <em>Docker</em> distribution)</p>
-<p>I personally like to run it with <em>Docker Compose</em> as it feels easier to modify and 
-reproduce across my projects.</p>
-<pre><code># docker-compose.yml
-version: &apos;2.1&apos;
-services:
-  postgres:
-    image: fetchq/fetchq:9.6-1.2.0
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: fetchq
-      POSTGRES_PASSWORD: fetchq
-      POSTGRES_DB: fetchq
-</code></pre><p>When you run this file with <code>docker-compose up</code> a brand new Postgres instance should be
-up and running on your development box in minutes.</p>
-<h2 id="basic-sql-queries">Basic SQL queries</h2>
-<p>Let&apos;s connect</p>
-<h2 id="setup-the-node-app">Setup the Node app</h2>
+<p>This tutorial will guide you through the setup of a <em>Fetchq</em> project.</p>
+<p><strong>NOTE:</strong> You are going to use <em>Docker</em>, <em>Postgres</em> and <em>NodeJS</em> to set this up.
+I assume you have at least a brief working with those tools.</p>
+<h3 id="follow-those-steps">Follow those steps:</h3>
+<ol>
+<li><a href="01-setup-postgres.html">Setup Postgres</a></li>
+<li><a href="02-initialize-fetchq.html">Initialize Fetchq</a></li>
+<li><a href="03-create-queue.html">Create a new queue</a></li>
+</ol>
 
                                 
                                 </section>
@@ -243,10 +244,14 @@ up and running on your development box in minutes.</p>
 
             
                 
-                <a href="../" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Home">
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Home">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="01-setup-postgres.html" class="navigation navigation-next " aria-label="Next page: Setup Postgres">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -255,7 +260,7 @@ up and running on your development box in minutes.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"1.2","depth":1,"next":{"title":"Sub page 1","level":"1.2.1","depth":2,"ref":"","articles":[]},"previous":{"title":"Home","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/README.md","mtime":"2018-07-04T20:21:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-04T20:26:06.079Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"1.2","depth":1,"next":{"title":"Setup Postgres","level":"1.2.1","depth":2,"path":"getting_started/01-setup-postgres.md","ref":"getting_started/01-setup-postgres.md","articles":[]},"previous":{"title":"Home","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/README.md","mtime":"2018-07-07T11:31:39.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-07T11:47:30.451Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

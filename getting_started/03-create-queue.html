@@ -208,6 +208,22 @@
                                 <h2 id="&#xAB;-getting-started-03-create-a-new-queue"><small class="new-row"><a href="./">&#xAB; Getting Started</a></small> 03 Create a new queue</h2>
 <p>First read:<br><a href="02-initialize-fetchq.html">Initialize Fetchq &#xBB;</a></p>
 <hr>
+<p><em>Fetchq</em> provides you with queues for you to manage few-to-millions documents. Hence your next
+step is to <em>create</em> a new queue:</p>
+<pre><code>SELECT * FROM fetchq_queue_create(&apos;foo&apos;);
+</code></pre><p><img src="03-create-queue.png" alt="create-queue"></p>
+<p>This command will <em>upsert</em> a queue. If the queue didn&apos;t exist then it&apos;s being created; else not
+so much is happening, but the command will not fail. You have a boolean indicator that tells
+you whether the queue had been created or updated.</p>
+<p><strong>NOTE:</strong> in future versions the &quot;update&quot; mode might trigger reindexing or version migration
+schema updates on a specific queue.</p>
+<p>If you list the tables again (<code>SELECT * FROM pg_catalog.pg_tables WHERE schemaname = &apos;public&apos;;</code>)
+you will notice that 3 new tables where created:</p>
+<ul>
+<li><code>fetchq__foo__documents</code> - will store the queue&apos;s documents</li>
+<li><code>fetchq__foo__errors</code> - errors will be logged here</li>
+<li><code>fetchq__foo__metrics</code> - timeserie metrics will let you plot the status in time for this queue</li>
+</ul>
 
                                 
                                 </section>
@@ -247,7 +263,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Create a new queue","level":"1.2.3","depth":2,"previous":{"title":"Initialize Fetchq","level":"1.2.2","depth":2,"path":"getting_started/02-initialize-fetchq.md","ref":"getting_started/02-initialize-fetchq.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/03-create-queue.md","mtime":"2018-07-07T11:30:21.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-07T11:32:37.607Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Create a new queue","level":"1.2.3","depth":2,"previous":{"title":"Initialize Fetchq","level":"1.2.2","depth":2,"path":"getting_started/02-initialize-fetchq.md","ref":"getting_started/02-initialize-fetchq.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/03-create-queue.md","mtime":"2018-07-07T11:46:51.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-07T11:47:30.451Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -255,10 +271,6 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
-    
-        
-        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
-        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
