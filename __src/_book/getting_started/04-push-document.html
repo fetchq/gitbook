@@ -236,7 +236,83 @@
                                 <h2 id="&#xAB;-getting-started-04-push-a-document"><small class="new-row"><a href="./">&#xAB; Getting Started</a></small> 04 Push a Document</h2>
 <p>First read:<br><a href="03-create-queue.html">Create a new queue &#xBB;</a></p>
 <hr>
-<p>[todo]</p>
+<p>Now that you have a queue ready, the first action you want to look into is how to push data into it.</p>
+<p>There are 3 possible ways to add a document into a queue:</p>
+<ul>
+<li><code>fetchq_doc_push()</code> - add a unique document by subject</li>
+<li><code>fetchq_doc_upsert()</code> - add a unique document by subject, or update an existing document</li>
+<li><code>fetchq_doc_append()</code> - add a new document with an auto-generated unique subject</li>
+</ul>
+<p>In this document I&apos;m going to briefly describe how and in which conditions you may want to use those methods.</p>
+<h2 id="fetchqdocpush">fetchq_doc_push</h2>
+<pre><code># Function signature
+fetchq_doc_push(
+  queue::string          // queue name, es: &quot;foo&quot;
+  subject::string        // your unique id, es: &quot;john&quot;
+  version::int           // the version of the document, es: 0
+  priority::int          // an arbitrary priority, es: 0
+  nextIteration::date    // when to execute the document, es: &quot;2081-06-30 15:05&quot;
+  payload::jsonb         // a json payload, consider it a cookie. es: &apos;{&quot;age&quot;:22}&apos;
+)
+
+# SQL Example
+SELECT * FROM fetchq_doc_push(&apos;foo&apos;, &apos;john&apos;, 0, 0, NOW() + INTERVAL &apos;20s&apos;, &apos;{}&apos;);
+</code></pre><p>If you own the subject of your document you are going to use <code>fetchq_doc_push()</code>. The classic
+example is that you have a list of superheroes that you want to monitor by scraping the
+website <code>http://avengers.com/{superuser}</code>.</p>
+<p>This project requires you to periodically scrape <code>avengers.com</code> on a specific page, which
+url can be generated automatically by knowing the name of the superuser. At this point the most
+important thing is to do not insert the same superhero twice or we are going to waste time!</p>
+<p>In this context the <code>payload</code> does not have much of an importance, but can be used as
+storage for informations that need to be carried out between different iterations:</p>
+<pre><code># those documents are good because the subject is unique
+SELECT * FROM fetchq_doc_push(&apos;avengers&apos;, &apos;ironman&apos;, 0, 0, NOW(), &apos;{ &quot;lastScore&quot;: 20 }&apos;);
+SELECT * FROM fetchq_doc_push(&apos;avengers&apos;, &apos;hulk&apos;, 0, 0, NOW(), &apos;{ &quot;lastScore&quot;: 18 }&apos;);
+...
+# this should be an error because &quot;ironman&quot; was already there!
+SELECT * FROM fetchq_doc_push(&apos;avengers&apos;, &apos;ironman&apos;, 0, 0, NOW(), &apos;{ &quot;lastScore&quot;: 20 }&apos;);
+</code></pre><p><strong>If you attempt to push duplicates they will simply be ignored</strong>. The function returns the
+number of documents that got inserted without causing subject duplication. </p>
+<p><strong>NOTE:</strong> this behaviour allow for the fastest possible <code>INSERT</code> performance, expecially when
+using the <code>bulk insert</code> signature.</p>
+<blockquote>
+<p>On an average mac I could measure insert speed of <strong>18K documents per second</strong>
+when pushing <strong>5M documents!</strong></p>
+</blockquote>
+<h2 id="fetchqdocupsert">fetchq_doc_upsert</h2>
+<pre><code># Function signature
+fetchq_doc_upsert(
+  queue::string          // queue name, es: &quot;foo&quot;
+  subject::string        // your unique id, es: &quot;john&quot;
+  version::int           // the version of the document, es: 0
+  priority::int          // an arbitrary priority, es: 0
+  nextIteration::date    // when to execute the document, es: &quot;2081-06-30 15:05&quot;
+  payload::jsonb         // a json payload, consider it a cookie. es: &apos;{&quot;age&quot;:22}&apos;
+)
+
+# SQL Example
+SELECT * FROM fetchq_doc_upsert(&apos;foo&apos;, &apos;john&apos;, 0, 1, NOW() + INTERVAL &apos;1m&apos;, &apos;{&quot;age&quot;:22}&apos;);
+</code></pre><h2 id="fetchqdocappend">fetchq_doc_append</h2>
+<pre><code># Function signature
+fetchq_doc_append(
+  queue::string          // queue name, es: &quot;foo&quot;
+  payload::jsonb         // a json payload, consider it a cookie. es: &apos;{&quot;age&quot;:22}&apos;
+  version::int           // the version of the document, es: 0
+  priority::int          // an arbitrary priority, es: 0
+)
+
+# SQL Example
+SELECT * FROM fetchq_doc_append(&apos;foo&apos;, &apos;{&quot;age&quot;:22}&apos;, 0, 1);
+</code></pre><p>If you need to queue a document regardless of the subject univocity you append.</p>
+<p>In this circumstance the <code>payload</code> becomes the most important piece of information as it is
+the only discriminant between documents. Document version and priority work as usual.</p>
+<p>A classic example might be a <code>sendmail</code> queue to which we want to append documents that describe
+emails that need to be send. The worker will then process the queue, using the payload as source
+of the email informations:</p>
+<pre><code>SELECT * FROM fetchq_doc_append(&apos;sendmail&apos;, &apos;{&quot;to&quot;:&quot;foo@foo.it&quot;, &quot;template&quot;:&quot;signup&quot;, &quot;subject&quot;:&quot;welcome!&quot;}&apos;, 0, 0);
+</code></pre><p>This document will be appended with the current dateTime and will be processed as soon as possible.
+Classic implementation of a FIFO queue. In this type of queue the document is likely to be deleted
+after a successful iteration, but you may have different needs!</p>
 <hr>
 <p>Next step:<br><a href="05-consume-queue.md">Consume the queue &#xBB;</a></p>
 
@@ -282,7 +358,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Push a document","level":"1.2.4","depth":2,"next":{"title":"Consume a queue","level":"1.2.5","depth":2,"path":"getting_started/05-consume-queue.md","ref":"getting_started/05-consume-queue.md","articles":[]},"previous":{"title":"Create a new queue","level":"1.2.3","depth":2,"path":"getting_started/03-create-queue.md","ref":"getting_started/03-create-queue.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/04-push-document.md","mtime":"2018-07-07T14:16:10.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-07T14:17:31.310Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Push a document","level":"1.2.4","depth":2,"next":{"title":"Consume a queue","level":"1.2.5","depth":2,"path":"getting_started/05-consume-queue.md","ref":"getting_started/05-consume-queue.md","articles":[]},"previous":{"title":"Create a new queue","level":"1.2.3","depth":2,"path":"getting_started/03-create-queue.md","ref":"getting_started/03-create-queue.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/04-push-document.md","mtime":"2018-07-07T17:46:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-07T17:47:00.237Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
