@@ -1,9 +1,4 @@
-## <small class="new-row">[&laquo; Getting Started](./README.md)</small> 03 Create a new queue
-
-First read:   
-[Initialize Fetchq &raquo;](02-initialize-fetchq.md)
-
----
+# Create a new queue
 
 _Fetchq_ provides you with queues for you to manage few-to-millions documents. Hence your next
 step is to _create_ a new queue:
@@ -49,8 +44,3 @@ contents: documents, jobs, metrics, ...
 ```
 SELECT * FROM fetchq_queue_drop('foo');
 ```
-
----
-
-Next step:  
-[Push a document &raquo;](04-push-document.md)

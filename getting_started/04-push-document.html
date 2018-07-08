@@ -96,11 +96,43 @@
                 <a href="../">
             
                     
-                    Home
+                    Welcome to Fetchq
             
                 </a>
             
 
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="../why.html">
+            
+                <a href="../why.html">
+            
+                    
+                    Yet another queue system?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="../features.html">
+            
+                <a href="../features.html">
+            
+                    
+                    Features you will enjoy »
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
             
         </li>
     
@@ -190,6 +222,26 @@
     
 
     
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../GLOSSARY.html">
+            
+                <a href="../GLOSSARY.html">
+            
+                    
+                    Glossary
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
 
     <li class="divider"></li>
 
@@ -233,9 +285,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="&#xAB;-getting-started-04-push-a-document"><small class="new-row"><a href="./">&#xAB; Getting Started</a></small> 04 Push a Document</h2>
-<p>First read:<br><a href="03-create-queue.html">Create a new queue &#xBB;</a></p>
-<hr>
+                                <h2 id="push-a-document">Push a Document</h2>
 <p>Now that you have a queue ready, the first action you want to look into is how to push data into it.</p>
 <p>There are 3 possible ways to add a document into a queue:</p>
 <ul>
@@ -292,7 +342,15 @@ fetchq_doc_upsert(
 
 # SQL Example
 SELECT * FROM fetchq_doc_upsert(&apos;foo&apos;, &apos;john&apos;, 0, 1, NOW() + INTERVAL &apos;1m&apos;, &apos;{&quot;age&quot;:22}&apos;);
-</code></pre><h2 id="fetchqdocappend">fetchq_doc_append</h2>
+</code></pre><p><code>upsert</code> shares the same signature as <code>push</code> but it has update capabilities in case the document
+already exists in the queue. The following properties will be updated:</p>
+<ul>
+<li>priority</li>
+<li>nextIteration</li>
+<li>payload</li>
+</ul>
+<p><strong>NOTE:</strong> the update will be applied to <a href="../GLOSSARY.html#active-documents" class="glossary-term" title="see: active document">active documents</a> only.</p>
+<h2 id="fetchqdocappend">fetchq_doc_append</h2>
 <pre><code># Function signature
 fetchq_doc_append(
   queue::string          // queue name, es: &quot;foo&quot;
@@ -313,8 +371,6 @@ of the email informations:</p>
 </code></pre><p>This document will be appended with the current dateTime and will be processed as soon as possible.
 Classic implementation of a FIFO queue. In this type of queue the document is likely to be deleted
 after a successful iteration, but you may have different needs!</p>
-<hr>
-<p>Next step:<br><a href="05-consume-queue.md">Consume the queue &#xBB;</a></p>
 
                                 
                                 </section>
@@ -358,7 +414,7 @@ after a successful iteration, but you may have different needs!</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Push a document","level":"1.2.4","depth":2,"next":{"title":"Consume a queue","level":"1.2.5","depth":2,"path":"getting_started/05-consume-queue.md","ref":"getting_started/05-consume-queue.md","articles":[]},"previous":{"title":"Create a new queue","level":"1.2.3","depth":2,"path":"getting_started/03-create-queue.md","ref":"getting_started/03-create-queue.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/04-push-document.md","mtime":"2018-07-07T17:46:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-07T17:47:00.237Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Push a document","level":"1.2.4","depth":2,"next":{"title":"Consume a queue","level":"1.2.5","depth":2,"path":"getting_started/05-consume-queue.md","ref":"getting_started/05-consume-queue.md","articles":[]},"previous":{"title":"Create a new queue","level":"1.2.3","depth":2,"path":"getting_started/03-create-queue.md","ref":"getting_started/03-create-queue.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/04-push-document.md","mtime":"2018-07-08T11:41:10.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-08T12:35:51.133Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

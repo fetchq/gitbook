@@ -1,10 +1,4 @@
-## <small class="new-row">[&laquo; Getting Started](./README.md)</small> 02 Initialize Fetchq
-
-First read:   
-[Setup Postgres &raquo;](./01-setup-postgres.md)
-
----
-
+# Initialize Fetchq
 
 So far you have a plain _Postgres_ running, as it comes out from the factory. Fetchq extension
 files are shipped within the container, but the extension itself needs to be created:
@@ -33,8 +27,3 @@ SELECT * FROM pg_catalog.pg_tables WHERE schemaname = 'public';
 ```
 
 ![pg-tables](./02-pg-tables.png)
-
----
-
-Next step:  
-[Create a new queue &raquo;](./03-create-queue.md)

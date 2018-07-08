@@ -1,4 +1,4 @@
-## <small class="new-row">[&laquo; Getting Started](./README.md)</small> 01 Setup Postgres database
+# Setup Postgres database
 
 The first step is to boot a _Postgres_ instance that can run the _Fetchq_ extension.
 
@@ -52,8 +52,3 @@ docker run -it --rm --link fetchq:postgres postgres psql -h postgres -U postgres
 
 **IMPORTANT:** from now on I will only write _SQL QUERIES_, assuming that you will run them
 with the "single query" command. But suits yourself and use whathever method you like best!
-
----
-
-Next step:  
-[Initialize Fetchq &raquo;](./02-initialize-fetchq.md)

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Welcome to Fetchq · GitBook</title>
+        <title>Features you will enjoy » · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -59,8 +59,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="why.html" />
+    <link rel="next" href="getting_started/" />
     
+    
+    <link rel="prev" href="why.html" />
     
 
     </head>
@@ -89,7 +91,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -116,7 +118,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.2" data-path="features.html">
+        <li class="chapter active" data-level="1.1.2" data-path="features.html">
             
                 <a href="features.html">
             
@@ -268,7 +270,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Welcome to Fetchq</a>
+        <a href="." >Features you will enjoy »</a>
     </h1>
 </div>
 
@@ -283,18 +285,41 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="welcome-to-fetchq">Welcome to Fetchq</h1>
-<p><code>fetchq</code> is a <strong>queue system</strong> that we think is easy to integrate in your existing project:</p>
-<ul>
-<li>fetchq is 70% a Postgres extension</li>
-<li>fetchq is 15% a Client library</li>
-<li>fetchq is 15% a REST server</li>
-</ul>
-<p>We are using <code>fetchq</code> in production to handle queues up to <strong>60 millions unique repetitive
-tasks</strong> (web scraping) with throughputs of easily thousands of jobs / minute, in a 
-<strong>real life project</strong> where we have to deal with unreliable HTTP requests, <strong>horizontal scaling 
-across 70 workers server</strong> (real concurrent access) and the constant fight for ever changing 
-APIs or our targets (which I&apos;m not going to disclose here).</p>
+                                <h1 id="fetchq-features">Fetchq Features</h1>
+<h3 id="multiple-distributed-workers">Multiple distributed workers</h3>
+<p>The whole point of developing <em>Fetchq</em> was to scale a crowler app that I was working on.</p>
+<p>My target website (often in this pages I refer to it as the &quot;superheroes&quot; website) did slow down
+their response time and I had to put more servers (with different public IPs) into the job.</p>
+<p>I soon found out that by simply picking up a task from a sorted list was not enough. I needed
+some sort of exclusive access to it that was resilient to multiple concurrent access.</p>
+<p>To date I am using <em>Fetchq</em> in production with ~90 machines pointing to it as single source
+of truth for the question &quot;what do I do next?&quot;.</p>
+<h3 id="endless--reliable-storage">Endless (~) reliable storage</h3>
+<p>I admit I am no expert in higly available distributed queue systems that do not fail.
+I know it is possible to build a custom queue system with a couple of existing open source
+solution, but I got to face the hard fact that is expensive in knowledge and infrastructure.</p>
+<p><em>Postgres</em> is a reliabale relational database with a solid set of tools to perform maintenance
+operations (backup/restore) that are familiar to most developers. Among <em>Postgres</em> wonderful
+internal features I can mention the table namespacing, basically you can route data to specific
+logic discs based on the table&apos;s name. Wonderful. You can distribute data the way you want to the
+disk you want, based on need.</p>
+<p>To date my production db is ~700Gb on a relatively small <em>AWS m4.medium</em> instance. There are
+~160M documents in it, and I can scale the data storage to multiple discks before I even start
+to think to clusterize <em>Postgres</em> itself (which is in the roadmap for <em>Fetchq</em> anyway).</p>
+<p>It is ridicolously easy to dump single (or multiple) queues into compressed files and automatically
+send them up to <em>S3</em> for long term restorable backup. It doesn&apos;t sweat!</p>
+<h3 id="near-real-time-metrics">Near real-time metrics</h3>
+<p><code>SELECT COUNT(*)</code> works only up to few hundred thousand records. Beyond that point you have to build
+your own guns.</p>
+<p>Much much work went into (and still is) building a solid and reliable metric system that rapresent a
+<em>near real time</em> status of your queue. But today you can track your entire system progress through a
+set of <em>Grafana boards</em> that give an immediate visual understanding. Cool stuff.</p>
+<p><img src="images/grafana-boards.png" alt="grafana-boards"></p>
+<p>Of course you can also programmatically access any metric, plus you can <strong>track your own metrics as well</strong>.</p>
+<p>Say you want to <strong>measure and track how long a piece of code takes to execute</strong>, this is not only doable,
+but it integrates seamlessly with the core metrics and you can plot a custom chart for that too.</p>
+<h3 id="best-effort-after-policy">Best effort &quot;after&quot; policy</h3>
+<h3 id="errors-threshold-with-logging">Errors threshold (with logging)</h3>
 
                                 
                                 </section>
@@ -322,8 +347,12 @@ APIs or our targets (which I&apos;m not going to disclose here).</p>
 
             
                 
+                <a href="why.html" class="navigation navigation-prev " aria-label="Previous page: Yet another queue system?">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="why.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Yet another queue system?">
+                
+                <a href="getting_started/" class="navigation navigation-next " aria-label="Next page: Getting Started">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -334,7 +363,7 @@ APIs or our targets (which I&apos;m not going to disclose here).</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Welcome to Fetchq","level":"1.1","depth":1,"next":{"title":"Yet another queue system?","level":"1.1.1","depth":2,"path":"why.md","ref":"why.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-07-08T11:51:34.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-08T12:35:51.133Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Features you will enjoy »","level":"1.1.2","depth":2,"next":{"title":"Getting Started","level":"1.2","depth":1,"path":"getting_started/README.md","ref":"getting_started/README.md","articles":[{"title":"Setup Postgres","level":"1.2.1","depth":2,"path":"getting_started/01-setup-postgres.md","ref":"getting_started/01-setup-postgres.md","articles":[]},{"title":"Initialize Fetchq","level":"1.2.2","depth":2,"path":"getting_started/02-initialize-fetchq.md","ref":"getting_started/02-initialize-fetchq.md","articles":[]},{"title":"Create a new queue","level":"1.2.3","depth":2,"path":"getting_started/03-create-queue.md","ref":"getting_started/03-create-queue.md","articles":[]},{"title":"Push a document","level":"1.2.4","depth":2,"path":"getting_started/04-push-document.md","ref":"getting_started/04-push-document.md","articles":[]},{"title":"Consume a queue","level":"1.2.5","depth":2,"path":"getting_started/05-consume-queue.md","ref":"getting_started/05-consume-queue.md","articles":[]}]},"previous":{"title":"Yet another queue system?","level":"1.1.1","depth":2,"path":"why.md","ref":"why.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"features.md","mtime":"2018-07-08T12:35:34.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-08T12:35:51.133Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

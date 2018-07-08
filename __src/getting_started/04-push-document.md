@@ -1,9 +1,4 @@
-## <small class="new-row">[&laquo; Getting Started](README.md)</small> 04 Push a Document
-
-First read:   
-[Create a new queue &raquo;](03-create-queue.md)
-
----
+## Push a Document
 
 Now that you have a queue ready, the first action you want to look into is how to push data into it.
 
@@ -79,6 +74,16 @@ fetchq_doc_upsert(
 SELECT * FROM fetchq_doc_upsert('foo', 'john', 0, 1, NOW() + INTERVAL '1m', '{"age":22}');
 ```
 
+`upsert` shares the same signature as `push` but it has update capabilities in case the document
+already exists in the queue. The following properties will be updated:
+
+- priority
+- nextIteration
+- payload
+
+**NOTE:** the update will be applied to active documents only.
+
+
 ## fetchq_doc_append
 
 ```
@@ -110,9 +115,3 @@ SELECT * FROM fetchq_doc_append('sendmail', '{"to":"foo@foo.it", "template":"sig
 This document will be appended with the current dateTime and will be processed as soon as possible.
 Classic implementation of a FIFO queue. In this type of queue the document is likely to be deleted
 after a successful iteration, but you may have different needs!
-
-
----
-
-Next step:  
-[Consume the queue &raquo;](05-consume-queue.md)
