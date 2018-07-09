@@ -9,6 +9,8 @@
   * [Create a new queue](getting_started/03-create-queue.md)
   * [Push a document](getting_started/04-push-document.md)
   * [Consume a queue](getting_started/05-consume-queue.md)
+  * [Maintenance](getting_started/06-maintenance.md)
+  * [Metrics](getting_started/07-metrics.md)
 
 ---
 
