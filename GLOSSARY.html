@@ -283,12 +283,50 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="active-document">active document</h2>
+                                <h2 id="pending-document">pending document</h2>
+<p>A document who&apos;s <code>next_iteration</code> date is set in the past is called <strong>pending</strong> and it
+will be processed as soon as possible.</p>
+<h2 id="pending-documents">pending documents</h2>
+<p>see: <a href="GLOSSARY.html#pending-document" class="glossary-term" title="A document who&apos;s next_iteration date is set in the past is called pending and it
+will be processed as soon as possible.">pending document</a></p>
+<h2 id="active-document">active document</h2>
 <p>A document becomes active when is being selected using <code>fetchq_doc_pick()</code>, normally
-a worker process is responsible of this state.</p>
+a <a href="GLOSSARY.html#worker" class="glossary-term" title="A worker is an app written in any language you may know (our examples are written in NodeJS)
+that pick a document from a queue and process it.">worker</a> process is responsible of this state.</p>
+<p>Only <a href="GLOSSARY.html#pending-documents" class="glossary-term" title="see: pending document">pending documents</a> can become active.</p>
 <h2 id="active-documents">active documents</h2>
 <p>see: <a href="GLOSSARY.html#active-document" class="glossary-term" title="A document becomes active when is being selected using fetchq_doc_pick(), normally
 a worker process is responsible of this state.">active document</a></p>
+<h2 id="worker">worker</h2>
+<p>A <em><a href="GLOSSARY.html#worker" class="glossary-term" title="A worker is an app written in any language you may know (our examples are written in NodeJS)
+that pick a document from a queue and process it.">worker</a></em> is an app written in any language you may know (our examples are written in NodeJS)
+that pick a document from a queue and process it.</p>
+<p><em>Fetchq</em> is engineered so that you can run multiple workers concurrently and they will not
+cross each other or receive the same document twice!</p>
+<h2 id="orphan-document">orphan document</h2>
+<p>When a document gets picked by a <a href="GLOSSARY.html#worker" class="glossary-term" title="A worker is an app written in any language you may know (our examples are written in NodeJS)
+that pick a document from a queue and process it.">worker</a>, the <a href="GLOSSARY.html#worker" class="glossary-term" title="A worker is an app written in any language you may know (our examples are written in NodeJS)
+that pick a document from a queue and process it.">worker</a> is given a certain amount of time to
+complete the data processing. It&apos;s a timeout tha the <a href="GLOSSARY.html#worker" class="glossary-term" title="A worker is an app written in any language you may know (our examples are written in NodeJS)
+that pick a document from a queue and process it.">worker</a> can set by itself and by default
+is set to 5 minutes.</p>
+<p>If this time lapse and the worked takes no action, <em>Fetchq</em> assumes that the <a href="GLOSSARY.html#worker" class="glossary-term" title="A worker is an app written in any language you may know (our examples are written in NodeJS)
+that pick a document from a queue and process it.">worker</a> is dead and
+takes action on the document.</p>
+<p>Based on the error threshold the document may be scheduled for another attempt or may
+become a <a href="GLOSSARY.html#dead-document" class="glossary-term" title="Means: &quot;you don&apos;t need to process me ever again&quot;.">dead document</a>.</p>
+<h2 id="orphan-documents">orphan documents</h2>
+<p>see: <a href="GLOSSARY.html#orphan-document" class="glossary-term" title="When a document gets picked by a worker, the worker is given a certain amount of time to
+complete the data processing. It&apos;s a timeout tha the worker can set by itself and by default
+is set to 5 minutes.">orphan document</a></p>
+<h2 id="dead-document">dead document</h2>
+<p>Means: &quot;you don&apos;t need to process me ever again&quot;.</p>
+<p>A document can be marked as &quot;dead&quot; by an explicity <a href="GLOSSARY.html#worker" class="glossary-term" title="A worker is an app written in any language you may know (our examples are written in NodeJS)
+that pick a document from a queue and process it.">worker</a>&apos;s action or because it went beyond
+the error threshold.</p>
+<p><strong>NOTE:</strong> the document is still in the queue so no other documents with the same subject
+will be admitted into the queue. If your want to allow for re-insert then you need to 
+drop the document.</p>
 
                                 
                                 </section>
@@ -328,7 +366,7 @@ a worker process is responsible of this state.">active document</a></p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Glossary","level":"2.1","depth":1,"previous":{"title":"Consume a queue","level":"1.2.5","depth":2,"path":"getting_started/05-consume-queue.md","ref":"getting_started/05-consume-queue.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"GLOSSARY.md","mtime":"2018-07-08T11:41:25.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-08T12:35:51.133Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Glossary","level":"2.1","depth":1,"previous":{"title":"Consume a queue","level":"1.2.5","depth":2,"path":"getting_started/05-consume-queue.md","ref":"getting_started/05-consume-queue.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"GLOSSARY.md","mtime":"2018-07-09T06:37:34.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-09T06:38:45.986Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
