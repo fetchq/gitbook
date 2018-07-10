@@ -1,0 +1,24 @@
+{
+  "name": "fetchq-documentation",
+  "version": "0.0.1",
+  "description": "Fetchq Gitbook Documentation Project",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "gitbook serve . docs",
+    "serve": "yarn start",
+    "build": "gitbook build . docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fetchq/gitbook.git"
+  },
+  "author": "Marco Pegoraro @marcopeg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fetchq/gitbook/issues"
+  },
+  "homepage": "https://fetchq.com"
+}
