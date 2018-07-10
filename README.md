@@ -20,7 +20,7 @@ yarn start
 
 the project will resolve dependencies and boot on port 4000.
 
-[Open: http://localhost:4000](http://localhost:4000)
+[http://localhost:4000 &raquo;](http://localhost:4000)
 
 ## Build the book for publication
 

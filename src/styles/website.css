@@ -6,3 +6,7 @@
     display: block;
     font-weight: normal;
 }
+
+.markdown-section sup {
+    font-size: 0.7em;
+}
