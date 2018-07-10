@@ -7,9 +7,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "gitbook serve . docs",
+    "start": "./node_modules/.bin/gitbook serve src docs",
     "serve": "yarn start",
-    "build": "gitbook build . docs"
+    "build": "./node_modules/.bin/gitbook build src docs"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/fetchq/gitbook/issues"
   },
-  "homepage": "https://fetchq.com"
+  "homepage": "https://fetchq.com",
+  "dependencies": {
+    "gitbook-cli": "^2.3.2"
+  }
 }

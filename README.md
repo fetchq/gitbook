@@ -1,14 +1,38 @@
-# Welcome to Fetchq
+# Fetchq Gitbook Documentation Project
 
-`fetchq` is a **queue system** that we think is easy to integrate in your existing project:
+This documentation project uses [Gitbook Toolchain](https://toolchain.gitbook.com/), 
+please have a read before you start contributing so you get a hang of it.
 
-- fetchq is 70% a Postgres extension
-- fetchq is 15% a Client library
-- fetchq is 15% a REST server
+There are 2 basic twists from a normal _Gitbook_ project:
 
-We are using `fetchq` in production to handle queues up to **60 millions unique repetitive
-tasks** (web scraping) with throughputs of easily thousands of jobs / minute, in a 
-**real life project** where we have to deal with unreliable HTTP requests, **horizontal scaling 
-across 70 workers server** (real concurrent access) and the constant fight for ever changing 
-APIs or our targets (which I'm not going to disclose here).
+- `src` is used as the contents source folder
+- `docs` is used as the build folder
+
+We achieve that by customizing the `gitbook serve/build` command in the `package.json`.
+Basically you need to use `yarn/npm start` and `yarn/npm build` to run the _gitbook_ properly.
+
+## Start the book locally
+
+```
+yarn install
+yarn start
+```
+
+the project will resolve dependencies and boot on port 4000.
+
+[Open: http://localhost:4000](http://localhost:4000)
+
+## Build the book for publication
+
+```
+yarn build
+```
+
+## How to contribute
+
+1. fork
+2. make a nice change / fix / contribution
+3. commit and open a PR
+
+We appreciate your help!
 
