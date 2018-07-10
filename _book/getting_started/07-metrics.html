@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Initialize Fetchq · GitBook</title>
+        <title>Metrics · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -59,10 +59,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="03-create-queue.html" />
+    <link rel="next" href="../GLOSSARY.html" />
     
     
-    <link rel="prev" href="01-setup-postgres.html" />
+    <link rel="prev" href="06-maintenance.html" />
     
 
     </head>
@@ -165,7 +165,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.3" data-path="02-initialize-fetchq.html">
+        <li class="chapter " data-level="2.3" data-path="02-initialize-fetchq.html">
             
                 <a href="02-initialize-fetchq.html">
             
@@ -230,7 +230,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.8" data-path="07-metrics.html">
+        <li class="chapter active" data-level="2.8" data-path="07-metrics.html">
             
                 <a href="07-metrics.html">
             
@@ -293,7 +293,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Initialize Fetchq</a>
+        <a href=".." >Metrics</a>
     </h1>
 </div>
 
@@ -308,18 +308,28 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="initialize-fetchq">Initialize Fetchq</h1>
-<p>So far you have a plain <em>Postgres</em> running, as it comes out from the factory. Fetchq extension
-files are shipped within the container, but the extension itself needs to be created:</p>
-<pre><code>CREATE EXTENSION IF NOT EXISTS &quot;fetchq&quot;;
-</code></pre><p>You may also want to create the extension <code>uuid-ossp</code> which is a core extension used to generate
-unique document names, useful for appending unique documents into a queue.</p>
-<pre><code>CREATE EXTENSION IF NOT EXISTS &quot;uuid-ossp&quot;;
-</code></pre><p>At this point you are ready to initialize <em>Fetcqh</em> and create the basics <em>schema</em> for your database:</p>
-<pre><code>SELECT * FROM fetchq_init();
-</code></pre><p>Test your installation by listing the tables in the <em>public schema</em>:</p>
-<pre><code>SELECT * FROM pg_catalog.pg_tables WHERE schemaname = &apos;public&apos;;
-</code></pre><p><img src="02-pg-tables.png" alt="pg-tables"></p>
+                                <h1 id="metrics">Metrics</h1>
+<p>One of the most important features in <em>Fetchq</em> are the metrics, or the ability to
+check what is the status of a queue while actively working on it.</p>
+<p>Basically you may want to know how many documents do you hace in a particular
+queue, how may <a href="../GLOSSARY.html#pending-documents" class="glossary-term" title="see: pending document">pending documents</a> and how many errors have been triggered.</p>
+<p>More than that you may want to plot a chart to check how one (or more) of this
+metrics are changing through time. Data visualization is a very relevant chapter
+in handling a multi-million documents data processing project:</p>
+<p><img src="07-grafana-dashboard.png" alt="grafana-dashboard"></p>
+<p><em>Fetchq</em> offers a wide range of functions that helps in gathering different metrics
+at different levels of &quot;focus&quot;. In this page we will see some basic cases.</p>
+<h2 id="get-a-global-overview">Get a global overview</h2>
+<pre><code>SELECT * FROM fetchq_metric_get_all();
+</code></pre><p>This query will provide the latest available values for the core metrics for all the
+queues that are available in the database.</p>
+<p><img src="07-fetchq-metric-get-all.png" alt="fetchq-metric-get-all"></p>
+<p><strong>NOTE:</strong> only the core metrics are listed in this table. As you may know already, you can
+add unlimited custom metrics to any queue. To read those, look at the next paragraph.</p>
+<h2 id="get-metrics-for-a-specific-queue">Get metrics for a specific queue</h2>
+<p>This query targets a specific queue, but lists all the available metrics, core plus custom ones. And for each metric you have the last update time too.</p>
+<pre><code>SELECT * FROM fetchq_metric_get(&apos;people&apos;);
+</code></pre><p><img src="07-fetchq-metric-get.png" alt="fetchq-metric-get"></p>
 
                                 
                                 </section>
@@ -347,12 +357,12 @@ unique document names, useful for appending unique documents into a queue.</p>
 
             
                 
-                <a href="01-setup-postgres.html" class="navigation navigation-prev " aria-label="Previous page: Setup Postgres">
+                <a href="06-maintenance.html" class="navigation navigation-prev " aria-label="Previous page: Maintenance">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="03-create-queue.html" class="navigation navigation-next " aria-label="Next page: Create a new queue">
+                <a href="../GLOSSARY.html" class="navigation navigation-next " aria-label="Next page: Glossary">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -363,7 +373,7 @@ unique document names, useful for appending unique documents into a queue.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Initialize Fetchq","level":"2.3","depth":1,"next":{"title":"Create a new queue","level":"2.4","depth":1,"path":"getting_started/03-create-queue.md","ref":"getting_started/03-create-queue.md","articles":[]},"previous":{"title":"Setup Postgres","level":"2.2","depth":1,"path":"getting_started/01-setup-postgres.md","ref":"getting_started/01-setup-postgres.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/02-initialize-fetchq.md","mtime":"2018-07-08T11:23:07.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-09T14:09:11.091Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Metrics","level":"2.8","depth":1,"next":{"title":"Glossary","level":"3.1","depth":1,"path":"GLOSSARY.md","ref":"GLOSSARY.md","articles":[]},"previous":{"title":"Maintenance","level":"2.7","depth":1,"path":"getting_started/06-maintenance.md","ref":"getting_started/06-maintenance.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/07-metrics.md","mtime":"2018-07-09T10:08:24.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-10T06:41:34.528Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
