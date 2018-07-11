@@ -9,7 +9,8 @@
   "scripts": {
     "start": "./node_modules/.bin/gitbook serve src docs",
     "serve": "yarn start",
-    "build": "./node_modules/.bin/gitbook build src docs"
+    "build": "./node_modules/.bin/gitbook build src docs",
+    "deploy": "yarn build && git add . && git commit -m \"publish\" && git push"
   },
   "repository": {
     "type": "git",

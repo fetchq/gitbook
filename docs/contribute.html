@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Welcome to Fetchq · GitBook</title>
+        <title>How to contribute · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -59,8 +59,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="why.html" />
+    <link rel="next" href="GLOSSARY.html" />
     
+    
+    <link rel="prev" href="getting_started/07-metrics.html" />
     
 
     </head>
@@ -91,7 +93,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -248,7 +250,7 @@
         
         
     
-        <li class="chapter " data-level="3.1" data-path="contribute.html">
+        <li class="chapter active" data-level="3.1" data-path="contribute.html">
             
                 <a href="contribute.html">
             
@@ -304,7 +306,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Welcome to Fetchq</a>
+        <a href="." >How to contribute</a>
     </h1>
 </div>
 
@@ -319,16 +321,23 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="welcome-to-fetchq">Welcome to Fetchq</h1>
-<p><code>fetchq</code> is a <strong>queue system</strong> that we think is easy to integrate in your existing project:</p>
-<ul>
-<li>fetchq is 70% a Postgres extension</li>
-<li>fetchq is 15% a Client library</li>
-<li>fetchq is 15% a REST server</li>
-</ul>
-<p>We are using <code>fetchq</code> in <strong>Real Life <sup>(tm)</sup></strong> projects to handle queues up to <strong>60 millions unique repetitive tasks</strong> (web scraping) with throughputs of thousands of jobs / minute, where we have to deal with unreliable HTTP requests, 
-<strong>horizontal scaling across 70 workers server</strong> (real concurrent access) and the constant fight for ever changing APIs of our targets (which I&apos;m not going to disclose here).</p>
+                                <h1 id="how-to-contrbute">How to contrbute</h1>
+<h2 id="setup-your-local-development-machine">Setup your local development machine</h2>
+<p>In order to run the development stuff you need to clone a couple of repos and install
+some node dependencies. </p>
+<p>The process might change in time and we thought it may be easier to collect all the
+steps in a <a href="https://gist.github.com/marcopeg/cc0fab6c1be1fafb7fd7c4fd87f08ff9" target="_blank">publig gist</a>.</p>
+<p>You can run the script as a single command line instruction:</p>
+<pre><code># OSX
+bash &lt;(curl -fsSL https://gist.github.com/marcopeg/cc0fab6c1be1fafb7fd7c4fd87f08ff9/raw)
 
+# Linux
+wget -O - https://gist.github.com/marcopeg/cc0fab6c1be1fafb7fd7c4fd87f08ff9/raw | bash -s
+</code></pre><p>We recommend you run this from an empty folder that you reserve to Fetchq:</p>
+<pre><code>mkdir fetchq \
+&amp;&amp; cd fetchq \
+&amp;&amp; bash &lt;(curl -fsSL https://gist.github.com/marcopeg/cc0fab6c1be1fafb7fd7c4fd87f08ff9/raw)
+</code></pre>
                                 
                                 </section>
                             
@@ -355,8 +364,12 @@
 
             
                 
+                <a href="getting_started/07-metrics.html" class="navigation navigation-prev " aria-label="Previous page: Metrics">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="why.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Yet another queue system?">
+                
+                <a href="GLOSSARY.html" class="navigation navigation-next " aria-label="Next page: Glossary">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -367,7 +380,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Welcome to Fetchq","level":"1.1","depth":1,"next":{"title":"Yet another queue system?","level":"1.2","depth":1,"path":"why.md","ref":"why.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-07-10T07:14:25.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-11T09:39:09.791Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"How to contribute","level":"3.1","depth":1,"next":{"title":"Glossary","level":"3.2","depth":1,"path":"GLOSSARY.md","ref":"GLOSSARY.md","articles":[]},"previous":{"title":"Metrics","level":"2.8","depth":1,"path":"getting_started/07-metrics.md","ref":"getting_started/07-metrics.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"contribute.md","mtime":"2018-07-11T09:34:54.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-11T09:39:09.791Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

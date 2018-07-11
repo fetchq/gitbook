@@ -21,4 +21,5 @@
 
 ---
 
+* [How to contribute](contribute.md)
 * [Glossary](GLOSSARY.md)
