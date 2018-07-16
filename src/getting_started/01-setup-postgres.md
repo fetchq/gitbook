@@ -10,7 +10,7 @@ basically _Postgres_ with the _Fetchq_ extension's files shipped within.
 To quickly run _Fetchq_ you can copy paste this command:
 
 ```
-docker run --name fetchq -p 5432:5432 fetchq/fetchq:9.6-1.3.0
+docker run --name fetchq -p 5432:5432 fetchq/fetchq:10.4-1.3.0
 ```
 
 ## ...or With Docker Compose
@@ -22,7 +22,7 @@ reproduce across my projects. Try this snippet in your `docker-compose.yml`:
 # ./docker-compose.yml
 services:
   postgres:
-    image: fetchq/fetchq:9.6-1.2.0
+    image: fetchq/fetchq:10.4-1.3.0
     ports:
       - 5432:5432
     container_name: fetchq
@@ -34,7 +34,7 @@ commands in this page.
 
 ## Connect to the database
 
-This will start _Postgres 9.6_ with the default configuration as described in the
+This will start _Postgres 10.4_ with the default configuration as described in the
 [Postgres's Docker Hub page](https://hub.docker.com/_/postgres/).
 Anyway use "_postgres_" as setting for _username_, _password_ and _database_ **when you connect**
 using _psql_ or a visual client such [Postico](https://eggerapps.at/postico/).

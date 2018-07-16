@@ -27,13 +27,17 @@ fetchq_doc_push(
 SELECT * FROM fetchq_doc_push('foo', 'john', 0, 0, NOW() + INTERVAL '20s', '{}');
 ```
 
-If you own the subject of your document you are going to use `fetchq_doc_push()`. The classic
-example is that you have a list of superheroes that you want to monitor by scraping the
-website `http://avengers.com/{superuser}`.
+If you **own the subject of your documents**, you are going to use `fetchq_doc_push()`.
 
-This project requires you to periodically scrape `avengers.com` on a specific page, which
-url can be generated automatically by knowing the name of the superuser. At this point the most
-important thing is to do not insert the same superhero twice or we are going to waste time!
+The classic example is that you have a list of superheroes that you want to monitor 
+by scraping the website `http://avengers.com/{superuser}`.
+
+This project requires you to periodically scrape `avengers.com` for a specific page, which
+url can be automatically generated from the superhero's name. At this point the most
+important thing is: **to do not insert the same superhero twice**, or we are going to
+waste time repeating the same scraping job over and over for no reasons!
+
+> The good news is: _Fetchq_ guarantees one single subject occourrence for each queue.
 
 In this context the `payload` does not have much of an importance, but can be used as
 storage for informations that need to be carried out between different iterations:
@@ -53,9 +57,18 @@ number of documents that got inserted without causing subject duplication.
 **NOTE:** this behaviour allow for the fastest possible `INSERT` performance, expecially when
 using the `bulk insert` signature.
 
-> On an average mac I could measure insert speed of **18K documents per second**
-> when pushing **5M documents!**
+> On an average _MacBookPro_ I could measure insert speed of **18K documents per second**
+> when pushing **5M documents!**, running it with Docker in development mode, while
+> listening to Spotify, chatting in Slack, receiving emails _(sending emails, clicking, 
+> double clicking, ...)_ on Gmail, reading countless Stackoverflow tabs on my Chrome.
 
+**READING OUT:** If you quickly want to check the documents in the queue you can run:
+
+```
+SELECT * FROM fetchq_queue_top('foo', 0, 10, 0);
+```
+
+_This command will be explained later on in this guide._
 
 ## fetchq_doc_upsert
 
@@ -81,7 +94,7 @@ already exists in the queue. The following properties will be updated:
 - nextIteration
 - payload
 
-**NOTE:** the update will be applied to active documents only.
+**NOTE:** the update will be applied to documents that **ARE NOT** active document.
 
 
 ## fetchq_doc_append

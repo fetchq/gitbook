@@ -323,9 +323,9 @@
                                 
                                 <h1 id="maintenance">Maintenance</h1>
 <p><em>Fetchq</em> uses <em>indexes</em> in such a smart way that handling millions of documents in a
-queue is not a problem at all, even in small machines. Cool stuff.</p>
+queue is not a problem at all, even on small machines. Cool stuff.</p>
 <p>But in order to achieve this level of performances there are some operations that need
-to be executed here and there. Some maintenance operations that:</p>
+to be executed here and there. Operations like:</p>
 <ul>
 <li>update the documents lifecycle flag</li>
 <li>detect <a href="../GLOSSARY.html#orphan-documents" class="glossary-term" title="see: orphan document">orphan documents</a> and take action on them</li>
@@ -336,12 +336,15 @@ to be executed here and there. Some maintenance operations that:</p>
 </ul>
 <p><strong>NOTE:</strong> you normally don&apos;t need to bother with this task. If you use one of the client
 libraries, then the library will run it in background for you.</p>
-<h2 id="queue-maintenance">Queue maintenance</h2>
-<pre><code>SELECT * FROM fetchq_mnt_run_all(100);
-</code></pre><p><img src="06-fetchq-mnt-run-all.png" alt="fetchq-mnt-run-all"></p>
-<h2 id="metrics-maintenance">Metrics maintenance</h2>
-<pre><code>SELECT * FROM fetchq_log_pack();
-</code></pre><p><img src="06-fetchq-metric-log-pack.png" alt="fetchq-metric-log-pack"></p>
+<pre><code>SELECT * FROM fetchq_mnt();
+</code></pre><p>This will run all the <strong>maintenance jobs</strong> for all the existing queues. If you are a little
+be like me and are courious about how things work, you may want to take a look at
+<code>fetchq_sys_jobs</code> table. This is a special queue that holds the maintenance jobs schedule.</p>
+<p>Every <em>Fetchq</em> client contains a daemon that will trigger jobs from this table, like it was
+a <em>cronjob</em>, but with a schedule and the <strong>ability to dinamically change the scheduling</strong> by
+simply changing the payload to suit your needs.</p>
+<p><strong>NOTE:</strong> There are many other maintenance commands that run specific tasks on a specific queue,
+in some circumstances it might be usefull to know them. You can find them in the API section.</p>
 
                                 
                                 </section>
@@ -385,7 +388,7 @@ libraries, then the library will run it in background for you.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Maintenance","level":"2.7","depth":1,"next":{"title":"Metrics","level":"2.8","depth":1,"path":"getting_started/07-metrics.md","ref":"getting_started/07-metrics.md","articles":[]},"previous":{"title":"Consume a queue","level":"2.6","depth":1,"path":"getting_started/05-consume-queue.md","ref":"getting_started/05-consume-queue.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/06-maintenance.md","mtime":"2018-07-09T09:52:50.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-11T09:39:09.791Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Maintenance","level":"2.7","depth":1,"next":{"title":"Metrics","level":"2.8","depth":1,"path":"getting_started/07-metrics.md","ref":"getting_started/07-metrics.md","articles":[]},"previous":{"title":"Consume a queue","level":"2.6","depth":1,"path":"getting_started/05-consume-queue.md","ref":"getting_started/05-consume-queue.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/06-maintenance.md","mtime":"2018-07-16T08:11:16.438Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-16T08:12:51.888Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

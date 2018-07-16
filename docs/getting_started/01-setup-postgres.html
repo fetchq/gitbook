@@ -327,14 +327,14 @@
 basically <em>Postgres</em> with the <em>Fetchq</em> extension&apos;s files shipped within.</p>
 <h2 id="run-with-docker">Run With Docker...</h2>
 <p>To quickly run <em>Fetchq</em> you can copy paste this command:</p>
-<pre><code>docker run --name fetchq -p 5432:5432 fetchq/fetchq:9.6-1.2.0
+<pre><code>docker run --name fetchq -p 5432:5432 fetchq/fetchq:10.4-1.3.0
 </code></pre><h2 id="or-with-docker-compose">...or With Docker Compose</h2>
 <p>I personally like to run it with <em>Docker Compose</em> as it feels easier to modify and 
 reproduce across my projects. Try this snippet in your <code>docker-compose.yml</code>:</p>
 <pre><code># ./docker-compose.yml
 services:
   postgres:
-    image: fetchq/fetchq:9.6-1.2.0
+    image: fetchq/fetchq:10.4-1.3.0
     ports:
       - 5432:5432
     container_name: fetchq
@@ -342,7 +342,7 @@ services:
 </code></pre><p><code>container_name</code> and <code>network_mode</code> are important for the successful execution of the `psql``
 commands in this page.</p>
 <h2 id="connect-to-the-database">Connect to the database</h2>
-<p>This will start <em>Postgres 9.6</em> with the default configuration as described in the
+<p>This will start <em>Postgres 10.4</em> with the default configuration as described in the
 <a href="https://hub.docker.com/_/postgres/" target="_blank">Postgres&apos;s Docker Hub page</a>.
 Anyway use &quot;<em>postgres</em>&quot; as setting for <em>username</em>, <em>password</em> and <em>database</em> <strong>when you connect</strong>
 using <em>psql</em> or a visual client such <a href="https://eggerapps.at/postico/" target="_blank">Postico</a>.</p>
@@ -400,7 +400,7 @@ with the &quot;single query&quot; command. But suits yourself and use whathever 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Setup Postgres","level":"2.2","depth":1,"next":{"title":"Initialize Fetchq","level":"2.3","depth":1,"path":"getting_started/02-initialize-fetchq.md","ref":"getting_started/02-initialize-fetchq.md","articles":[]},"previous":{"title":"Intro","level":"2.1","depth":1,"path":"getting_started/README.md","ref":"getting_started/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/01-setup-postgres.md","mtime":"2018-07-08T11:23:04.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-11T09:39:09.791Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Setup Postgres","level":"2.2","depth":1,"next":{"title":"Initialize Fetchq","level":"2.3","depth":1,"path":"getting_started/02-initialize-fetchq.md","ref":"getting_started/02-initialize-fetchq.md","articles":[]},"previous":{"title":"Intro","level":"2.1","depth":1,"path":"getting_started/README.md","ref":"getting_started/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/01-setup-postgres.md","mtime":"2018-07-16T07:41:09.662Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-16T08:12:51.888Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

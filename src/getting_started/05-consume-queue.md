@@ -29,6 +29,24 @@ SELECT * FROM fetchq_doc_push('people', 'allie', 0, 0, NOW(), '{ "age": 25 }');
 SELECT * FROM fetchq_doc_push('people', 'richie', 0, 0, NOW(), '{ "age": 26 }');
 ```
 
+## Look up for the top of the queue
+
+Once you have pushed some documents you can look up for the documents that are going
+to be processed next. This is called "topping the queue":
+
+```
+# Function signature
+fetchq_queue_top(
+  queue::string          // queue name, es: "foo"
+  version::int           // the version of the document that you want to top, es: 0
+  limit::int             // how many documents to top, es: 1
+  offset::int            // how many documents to skip, es: 0 (good for pagination)
+)
+
+# SQL Example
+SELECT * FROM fetchq_queue_top('people', 0, 10, 0);
+```
+
 ## Pick a document for processing
 
 ```

@@ -346,6 +346,19 @@ SELECT * FROM fetchq_doc_push(&apos;people&apos;, &apos;agatha&apos;, 0, 0, NOW(
 SELECT * FROM fetchq_doc_push(&apos;people&apos;, &apos;mike&apos;, 0, 0, NOW(), &apos;{ &quot;age&quot;: 24 }&apos;);
 SELECT * FROM fetchq_doc_push(&apos;people&apos;, &apos;allie&apos;, 0, 0, NOW(), &apos;{ &quot;age&quot;: 25 }&apos;);
 SELECT * FROM fetchq_doc_push(&apos;people&apos;, &apos;richie&apos;, 0, 0, NOW(), &apos;{ &quot;age&quot;: 26 }&apos;);
+</code></pre><h2 id="look-up-for-the-top-of-the-queue">Look up for the top of the queue</h2>
+<p>Once you have pushed some documents you can look up for the documents that are going
+to be processed next. This is called &quot;topping the queue&quot;:</p>
+<pre><code># Function signature
+fetchq_queue_top(
+  queue::string          // queue name, es: &quot;foo&quot;
+  version::int           // the version of the document that you want to top, es: 0
+  limit::int             // how many documents to top, es: 1
+  offset::int            // how many documents to skip, es: 0 (good for pagination)
+)
+
+# SQL Example
+SELECT * FROM fetchq_queue_top(&apos;people&apos;, 0, 10, 0);
 </code></pre><h2 id="pick-a-document-for-processing">Pick a document for processing</h2>
 <pre><code># Function signature
 fetchq_doc_pick(
@@ -484,7 +497,7 @@ SELECT * FROM fetchq_doc_reject(&apos;people&apos;, &apos;richie&apos;, &apos;to
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Consume a queue","level":"2.6","depth":1,"next":{"title":"Maintenance","level":"2.7","depth":1,"path":"getting_started/06-maintenance.md","ref":"getting_started/06-maintenance.md","articles":[]},"previous":{"title":"Push a document","level":"2.5","depth":1,"path":"getting_started/04-push-document.md","ref":"getting_started/04-push-document.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/05-consume-queue.md","mtime":"2018-07-09T08:04:49.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-11T09:39:09.791Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Consume a queue","level":"2.6","depth":1,"next":{"title":"Maintenance","level":"2.7","depth":1,"path":"getting_started/06-maintenance.md","ref":"getting_started/06-maintenance.md","articles":[]},"previous":{"title":"Push a document","level":"2.5","depth":1,"path":"getting_started/04-push-document.md","ref":"getting_started/04-push-document.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/05-consume-queue.md","mtime":"2018-07-16T08:00:54.110Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-16T08:12:51.888Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

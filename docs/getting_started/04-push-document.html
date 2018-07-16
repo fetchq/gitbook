@@ -343,12 +343,16 @@ fetchq_doc_push(
 
 # SQL Example
 SELECT * FROM fetchq_doc_push(&apos;foo&apos;, &apos;john&apos;, 0, 0, NOW() + INTERVAL &apos;20s&apos;, &apos;{}&apos;);
-</code></pre><p>If you own the subject of your document you are going to use <code>fetchq_doc_push()</code>. The classic
-example is that you have a list of superheroes that you want to monitor by scraping the
-website <code>http://avengers.com/{superuser}</code>.</p>
-<p>This project requires you to periodically scrape <code>avengers.com</code> on a specific page, which
-url can be generated automatically by knowing the name of the superuser. At this point the most
-important thing is to do not insert the same superhero twice or we are going to waste time!</p>
+</code></pre><p>If you <strong>own the subject of your documents</strong>, you are going to use <code>fetchq_doc_push()</code>.</p>
+<p>The classic example is that you have a list of superheroes that you want to monitor 
+by scraping the website <code>http://avengers.com/{superuser}</code>.</p>
+<p>This project requires you to periodically scrape <code>avengers.com</code> for a specific page, which
+url can be automatically generated from the superhero&apos;s name. At this point the most
+important thing is: <strong>to do not insert the same superhero twice</strong>, or we are going to
+waste time repeating the same scraping job over and over for no reasons!</p>
+<blockquote>
+<p>The good news is: <em>Fetchq</em> guarantees one single subject occourrence for each queue.</p>
+</blockquote>
 <p>In this context the <code>payload</code> does not have much of an importance, but can be used as
 storage for informations that need to be carried out between different iterations:</p>
 <pre><code># those documents are good because the subject is unique
@@ -362,9 +366,14 @@ number of documents that got inserted without causing subject duplication. </p>
 <p><strong>NOTE:</strong> this behaviour allow for the fastest possible <code>INSERT</code> performance, expecially when
 using the <code>bulk insert</code> signature.</p>
 <blockquote>
-<p>On an average mac I could measure insert speed of <strong>18K documents per second</strong>
-when pushing <strong>5M documents!</strong></p>
+<p>On an average <em>MacBookPro</em> I could measure insert speed of <strong>18K documents per second</strong>
+when pushing <strong>5M documents!</strong>, running it with Docker in development mode, while
+listening to Spotify, chatting in Slack, receiving emails <em>(sending emails, clicking, 
+double clicking, ...)</em> on Gmail, reading countless Stackoverflow tabs on my Chrome.</p>
 </blockquote>
+<p><strong>READING OUT:</strong> If you quickly want to check the documents in the queue you can run:</p>
+<pre><code>SELECT * FROM fetchq_queue_top(&apos;foo&apos;, 0, 10, 0);
+</code></pre><p><em>This command will be explained later on in this guide.</em></p>
 <h2 id="fetchqdocupsert">fetchq_doc_upsert</h2>
 <pre><code># Function signature
 fetchq_doc_upsert(
@@ -385,7 +394,8 @@ already exists in the queue. The following properties will be updated:</p>
 <li>nextIteration</li>
 <li>payload</li>
 </ul>
-<p><strong>NOTE:</strong> the update will be applied to <a href="../GLOSSARY.html#active-documents" class="glossary-term" title="see: active document">active documents</a> only.</p>
+<p><strong>NOTE:</strong> the update will be applied to documents that <strong>ARE NOT</strong> <a href="../GLOSSARY.html#active-document" class="glossary-term" title="A document becomes active when is being selected using fetchq_doc_pick(), normally
+a worker process is responsible of this state.">active document</a>.</p>
 <h2 id="fetchqdocappend">fetchq_doc_append</h2>
 <pre><code># Function signature
 fetchq_doc_append(
@@ -451,7 +461,7 @@ after a successful iteration, but you may have different needs!</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Push a document","level":"2.5","depth":1,"next":{"title":"Consume a queue","level":"2.6","depth":1,"path":"getting_started/05-consume-queue.md","ref":"getting_started/05-consume-queue.md","articles":[]},"previous":{"title":"Create a new queue","level":"2.4","depth":1,"path":"getting_started/03-create-queue.md","ref":"getting_started/03-create-queue.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/04-push-document.md","mtime":"2018-07-08T11:41:10.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-11T09:39:09.791Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Push a document","level":"2.5","depth":1,"next":{"title":"Consume a queue","level":"2.6","depth":1,"path":"getting_started/05-consume-queue.md","ref":"getting_started/05-consume-queue.md","articles":[]},"previous":{"title":"Create a new queue","level":"2.4","depth":1,"path":"getting_started/03-create-queue.md","ref":"getting_started/03-create-queue.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/04-push-document.md","mtime":"2018-07-16T07:56:39.494Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-07-16T08:12:51.888Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
