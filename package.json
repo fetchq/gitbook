@@ -1,6 +1,6 @@
 {
   "name": "fetchq-documentation",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Fetchq Gitbook Documentation Project",
   "main": "index.js",
   "directories": {
