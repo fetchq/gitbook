@@ -10,7 +10,7 @@ basically _Postgres_ with the _Fetchq_ extension's files shipped within.
 To quickly run _Fetchq_ you can copy paste this command:
 
 ```
-docker run --name fetchq -p 5432:5432 fetchq/fetchq:9.6-1.2.0
+docker run --name fetchq -p 5432:5432 fetchq/fetchq:9.6-1.3.0
 ```
 
 ## ...or With Docker Compose
