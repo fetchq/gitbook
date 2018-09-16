@@ -18,6 +18,7 @@
 * [Consume a queue](getting_started/05-consume-queue.md)
 * [Maintenance](getting_started/06-maintenance.md)
 * [Metrics](getting_started/07-metrics.md)
+* [Use with NodeJS](getting_started/08-node-client.md)
 
 ---
 

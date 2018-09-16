@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Setup Postgres · GitBook</title>
+        <title>Use with NodeJS · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -59,10 +59,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="02-initialize-fetchq.html" />
+    <link rel="next" href="../contribute.html" />
     
     
-    <link rel="prev" href="./" />
+    <link rel="prev" href="07-metrics.html" />
     
 
     </head>
@@ -152,7 +152,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.2" data-path="01-setup-postgres.html">
+        <li class="chapter " data-level="2.2" data-path="01-setup-postgres.html">
             
                 <a href="01-setup-postgres.html">
             
@@ -243,7 +243,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.9" data-path="08-node-client.html">
+        <li class="chapter active" data-level="2.9" data-path="08-node-client.html">
             
                 <a href="08-node-client.html">
             
@@ -319,7 +319,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Setup Postgres</a>
+        <a href=".." >Use with NodeJS</a>
     </h1>
 </div>
 
@@ -334,42 +334,70 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="setup-postgres-database">Setup Postgres database</h1>
-<p>The first step is to boot a <em>Postgres</em> instance that can run the <em>Fetchq</em> extension.</p>
-<p><em>Fetchq</em> crew maintains an <a href="https://hub.docker.com/r/fetchq/fetchq/" target="_blank">image on <em>Docker HUB</em></a> that is
-basically <em>Postgres</em> with the <em>Fetchq</em> extension&apos;s files shipped within.</p>
-<h2 id="run-with-docker">Run With Docker...</h2>
-<p>To quickly run <em>Fetchq</em> you can copy paste this command:</p>
-<pre><code>docker run --name fetchq -p 5432:5432 fetchq/fetchq:10.4-1.3.0
-</code></pre><h2 id="or-with-docker-compose">...or With Docker Compose</h2>
-<p>I personally like to run it with <em>Docker Compose</em> as it feels easier to modify and 
-reproduce across my projects. Try this snippet in your <code>docker-compose.yml</code>:</p>
-<pre><code># ./docker-compose.yml
-services:
-  postgres:
-    image: fetchq/fetchq:10.4-1.3.0
-    ports:
-      - 5432:5432
-    container_name: fetchq
-    network_mode: bridge
-</code></pre><p><code>container_name</code> and <code>network_mode</code> are important for the successful execution of the `psql``
-commands in this page.</p>
-<h2 id="connect-to-the-database">Connect to the database</h2>
-<p>This will start <em>Postgres 10.4</em> with the default configuration as described in the
-<a href="https://hub.docker.com/_/postgres/" target="_blank">Postgres&apos;s Docker Hub page</a>.
-Anyway use &quot;<em>postgres</em>&quot; as setting for <em>username</em>, <em>password</em> and <em>database</em> <strong>when you connect</strong>
-using <em>psql</em> or a visual client such <a href="https://eggerapps.at/postico/" target="_blank">Postico</a>.</p>
-<blockquote>
-<p>Here I&apos;m going to use <em>Docker</em> to run <em>psql</em> and connect to the database.</p>
-</blockquote>
-<pre><code># Start a psql session:
-docker run -it --rm --link fetchq:postgres postgres psql -h postgres -U postgres
+                                <h1 id="node-client">Node Client</h1>
+<p>FetchQ was built with NodeJS in mind. Node is our primary language, and with
+FetchQ and Node we manage ~800M documents handled by ~70 client servers
+making external http requests all together. It works nicely.</p>
+<p>We maintain the official <code>fetchq</code> package which is a wrapper around <code>pg</code> and
+makes it easy to un a FetchQ <a href="../GLOSSARY.html#worker" class="glossary-term" title="A worker is an app written in any language you may know (our examples are written in NodeJS)
+that pick a document from a queue and process it.">worker</a> process. </p>
+<p><strong>NOTE:</strong> In order to run this tutorial you need a <a href="01-setup-postgres.html">working FetchQ server</a> and a recent version of NodeJS (&gt;8); We are going to
+use all default values to make it easier to try this out.</p>
+<h2 id="connect-a-client">Connect a Client</h2>
+<pre><code>// yarn add fetchq
+const fetchq = require(&apos;fetchq&apos;)
+</code></pre><p>Now I usually wrap my entire app around an <code>async</code> function so to be able
+to leverage <code>async/await</code> inside. I&apos;ll do that here, but mind that all the
+client methods return simple promises, you can do it that way <em>if you are
+inclined to do so</em>.</p>
+<pre><code>const main = async () =&gt; {
+    // our code will be placed in here...
+}
 
-# Launch a single query:
-docker run -it --rm --link fetchq:postgres postgres psql -h postgres -U postgres \
--c &apos;SELECT * FROM current_database()&apos;
-</code></pre><p><strong>IMPORTANT:</strong> from now on I will only write <em>SQL QUERIES</em>, assuming that you will run them
-with the &quot;single query&quot; command. But suits yourself and use whathever method you like best!</p>
+main()
+</code></pre><p>And mind that I&apos;ll skip all the <code>try/catch</code> in order to keep this tutorial as
+focused as possible. You can always take a look at the complete demos in GitHub.</p>
+<pre><code>const client = fetchq()
+await client.init()
+await client.start()
+</code></pre><p>If no errors are triggered you have now a fully working FetchQ node that is als
+running all the due maintenance jobs under the hood.</p>
+<p>The <code>client.init()</code> instruction is optional, if you aim to an already working database
+you don&apos;t need it. Anyway it will not cause any trouble if the db is already initialized.</p>
+<p>FYI: there all the <code>pg</code> authentication methods and <code>pool</code> settings are fully supported.</p>
+<h2 id="register-a-worker">Register a Worker</h2>
+<p>Now let&apos;s follow the steps and <a href="03-create-queue.html">create a new queue</a> <code>pizzeria</code>
+and <a href="04-push-document">push some documents</a> in it:</p>
+<pre><code>select * from fetchq_queue_create(&apos;pizzeria&apos;);
+select * from fetchq_doc_append(&apos;pizzeria&apos;, &apos;{&quot;pizza&quot;: &quot;margherita&quot;}&apos;, 0, 0);
+select * from fetchq_doc_append(&apos;pizzeria&apos;, &apos;{&quot;pizza&quot;: &quot;capricciosa&quot;}&apos;, 0, 0);
+select * from fetchq_doc_append(&apos;pizzeria&apos;, &apos;{&quot;pizza&quot;: &quot;4 formaggi&quot;}&apos;, 0, 0);
+select * from fetchq_doc_append(&apos;pizzeria&apos;, &apos;{&quot;pizza&quot;: &quot;prosciutto e funghi&quot;}&apos;, 0, 0);
+</code></pre><p>All we want to do is to register a simple Javascript function that will be executed
+for every document in the queue, when the right moment arrives:</p>
+<pre><code>client.workers.register({
+    queue: &apos;pizzeria&apos;,
+    handler: doc =&gt; {
+        console.log(`MAKE PIZZA: ${doc.payload.pizza} (order n: ${doc.subject}`)
+        return { action: &apos;drop&apos; }
+    },
+})
+</code></pre><p>You don&apos;t have to worry about concurrency or work load, FetchQ takes care of those problems
+for you! Just write your code using the informations that are carried by the <code>document</code>
+object:</p>
+<pre><code>{ subject: &apos;4b12d779-92a9-4fef-8486-94946f8abbb4&apos;,
+  payload: { pizza: &apos;capricciosa&apos; },
+  version: 0,
+  priority: 0,
+  attempts: 1,
+  iterations: 0,
+  created_at: 2018-09-16T15:20:38.523Z,
+  last_iteration: null,
+  next_iteration: 2018-09-16T15:25:38.531Z,
+  lock_upgrade: null
+}
+</code></pre><p>And implement the logic that you need. Mind that your function can be <code>async</code> or can
+simply return a <code>Promise</code> in order to take care of any asynchronous job.</p>
 
                                 
                                 </section>
@@ -397,12 +425,12 @@ with the &quot;single query&quot; command. But suits yourself and use whathever 
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Intro">
+                <a href="07-metrics.html" class="navigation navigation-prev " aria-label="Previous page: Metrics">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="02-initialize-fetchq.html" class="navigation navigation-next " aria-label="Next page: Initialize Fetchq">
+                <a href="../contribute.html" class="navigation navigation-next " aria-label="Next page: How to contribute">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -413,7 +441,7 @@ with the &quot;single query&quot; command. But suits yourself and use whathever 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Setup Postgres","level":"2.2","depth":1,"next":{"title":"Initialize Fetchq","level":"2.3","depth":1,"path":"getting_started/02-initialize-fetchq.md","ref":"getting_started/02-initialize-fetchq.md","articles":[]},"previous":{"title":"Intro","level":"2.1","depth":1,"path":"getting_started/README.md","ref":"getting_started/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/01-setup-postgres.md","mtime":"2018-07-16T07:41:09.662Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T15:24:58.439Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Use with NodeJS","level":"2.9","depth":1,"next":{"title":"How to contribute","level":"3.1","depth":1,"path":"contribute.md","ref":"contribute.md","articles":[]},"previous":{"title":"Metrics","level":"2.8","depth":1,"path":"getting_started/07-metrics.md","ref":"getting_started/07-metrics.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting_started/08-node-client.md","mtime":"2018-09-16T15:22:27.437Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T15:24:58.439Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
